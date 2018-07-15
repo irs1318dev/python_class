@@ -16,12 +16,15 @@ Participants who complete this course will be able to:
 * Revise, extend, maintain, and operate the IRS’s scouting system
 * Analyze FRC data and present results
 * Use Python for other scientific or engineering projects
+
 Prerequisites
 * None
+
 Necessary materials
 * Laptop, pPreferably Windows 10 because that’s what the instructor uses
   but any operating system should work
 * No books needed -- all necessary reference materials are online
+
 Instructional method
 * Keep lectures to a minimum
 * Show participants the online references and provide just enough information to start working on the coding exercises
