@@ -6,10 +6,7 @@ Issaquah Robotics Society (IRS), a FIRST Robotics Competition (FRC) team based a
 Issaquah Washington.
 
 The course is divided into multiple sessions, each of which covers only a few topics. There is a Google Slides
-presentation with instruction for every session available at this link:
-https://drive.google.com/drive/folders/1eAV6gEo4Z9B0qSD6UNGf6Zdt1UBHp6uI?usp=sharing.
-Most beginning programmers will require some coaching from experience Python programmers in order to work
-through this material.
+presentation for every session. [Click on this link for an overview:](https://docs.google.com/presentation/d/1I7UT_SlzKPdMUcimG--sRbG1tNZ6Wwg3zkupe0vBFAc/edit?usp=sharing).
 
 ## Course Objectives
 Participants who complete this course will be able to:
