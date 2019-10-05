@@ -1,0 +1,3 @@
+1. [Session 01: Getting Started](https://docs.google.com/presentation/d/1FqDXCWfYH1v-9yXYotv7_4cb-VxcP-pBz-Pqyu5yKxg/edit?usp=sharing)
+2. [Session 02: Control Statements](https://docs.google.com/presentation/d/1EsS_GCfHU33F9m24sub3JVP8bUGbixPPv2ASJlGGReA/edit?usp=sharing)
+3. [Session 03: Functions](https://docs.google.com/presentation/d/1fy_20fkLk6IrF8f-jA2fPuLFGHx-KgmI_ekqQeQbxB8/edit?usp=sharing)
