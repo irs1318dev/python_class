@@ -1,0 +1,955 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Dataframe\_SQL}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{setup-and-create-database-connection}{%
+\section{Setup and Create Database
+Connection}\label{setup-and-create-database-connection}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{sqlalchemy} \PY{k}{as} \PY{n+nn}{sa}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{conn\PYZus{}string} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgresql://irs1318:irs1318@localhost:5432/scouting}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{engine} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{n}{conn\PYZus{}string}\PY{p}{)}
+        \PY{n}{conn} \PY{o}{=} \PY{n}{engine}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{multi-table-join}{%
+\section{Multi-table Join}\label{multi-table-join}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{SELECT events.name AS event, events.season AS season, dates.name AS date,}
+        \PY{l+s+sd}{       levels.name AS level, matches.name AS match, alliances.name AS alliance,}
+        \PY{l+s+sd}{       stations.name AS station, teams.name AS team, phases.name AS phase,}
+        \PY{l+s+sd}{       actors.name AS actor, tasks.name AS task, measuretypes.name AS measuretype,}
+        \PY{l+s+sd}{       attempts.name AS attempt, reasons.name AS reason,}
+        \PY{l+s+sd}{       measures.successes AS successes, measures.attempts AS attempts,}
+        \PY{l+s+sd}{       measures.cycle\PYZus{}times as cycle\PYZus{}times, measures.capability as capability}
+        \PY{l+s+sd}{       }
+        \PY{l+s+sd}{    FROM teams FULL OUTER JOIN measures}
+        \PY{l+s+sd}{        ON teams.id=measures.team\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN tasks ON tasks.id = measures.task\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN phases ON phases.id = measures.phase\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN events ON events.id = measures.event\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN actors ON actors.id = measures.actor\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN matches ON matches.id = measures.match\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN levels ON levels.id = measures.level\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN alliances ON alliances.id = measures.alliance\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN stations ON stations.id = measures.station\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN measuretypes ON measuretypes.id = measures.measuretype\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN attempts ON attempts.id = measures.attempt\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN reasons ON reasons.id = measures.reason\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN dates ON dates.id = measures.date\PYZus{}id}
+        \PY{l+s+sd}{    WHERE events.name = \PYZsq{}wayak\PYZsq{} AND events.season = \PYZsq{}2018\PYZsq{} AND teams.name = \PYZsq{}1318\PYZsq{} AND tasks.name = \PYZsq{}placeSwitch\PYZsq{} AND phases.name = \PYZsq{}auto\PYZsq{}}
+        \PY{l+s+sd}{    ORDER BY matches.name, teams.name, phases.name, tasks.name, actors.name;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    event season                 date level  match alliance station  team  \textbackslash{}
+        0  wayak   2018  2018-03-16T11:14:00  qual  003-q      red       2  1318   
+        1  wayak   2018  2018-03-16T11:49:00  qual  008-q     blue       3  1318   
+        2  wayak   2018  2018-03-16T12:31:00  qual  014-q     blue       3  1318   
+        3  wayak   2018  2018-03-16T14:13:00  qual  020-q      red       2  1318   
+        4  wayak   2018  2018-03-16T14:41:00  qual  024-q     blue       3  1318   
+        5  wayak   2018  2018-03-16T15:44:00  qual  033-q     blue       1  1318   
+        6  wayak   2018  2018-03-16T16:56:00  qual  039-q      red       1  1318   
+        7  wayak   2018  2018-03-16T18:27:00  qual  052-q      red       2  1318   
+        8  wayak   2018  2018-03-17T09:30:00  qual  056-q     blue       3  1318   
+        9  wayak   2018  2018-03-17T10:05:00  qual  061-q     blue       1  1318   
+        
+          phase  actor         task measuretype  attempt reason  successes  attempts  \textbackslash{}
+        0  auto  robot  placeSwitch       count  summary     na          1         1   
+        1  auto  robot  placeSwitch       count  summary     na          1         1   
+        2  auto  robot  placeSwitch       count  summary     na          1         1   
+        3  auto  robot  placeSwitch       count  summary     na          1         1   
+        4  auto  robot  placeSwitch       count  summary     na          1         1   
+        5  auto  robot  placeSwitch       count  summary     na          1         1   
+        6  auto  robot  placeSwitch       count  summary     na          1         1   
+        7  auto  robot  placeSwitch       count  summary     na          1         1   
+        8  auto  robot  placeSwitch       count  summary     na          1         1   
+        9  auto  robot  placeSwitch       count  summary     na          1         1   
+        
+           cycle\_times  capability  
+        0            0           0  
+        1            0           0  
+        2            0           0  
+        3            0           0  
+        4            0           0  
+        5            0           0  
+        6            0           0  
+        7            0           0  
+        8            0           0  
+        9            0           0  
+\end{Verbatim}
+            
+    \hypertarget{sql-with-statement}{%
+\section{SQL WITH Statement}\label{sql-with-statement}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{WITH rmeasures AS (}
+        \PY{l+s+sd}{    SELECT events.name AS event, events.season AS season, dates.name AS date,}
+        \PY{l+s+sd}{       levels.name AS level, matches.name AS match, alliances.name AS alliance,}
+        \PY{l+s+sd}{       stations.name AS station, teams.name AS team, phases.name AS phase,}
+        \PY{l+s+sd}{       actors.name AS actor, tasks.name AS task, measuretypes.name AS measuretype,}
+        \PY{l+s+sd}{       attempts.name AS attempt, reasons.name AS reason,}
+        \PY{l+s+sd}{       measures.successes AS successes, measures.attempts AS attempts,}
+        \PY{l+s+sd}{       measures.cycle\PYZus{}times as cycle\PYZus{}times, measures.capability as capability}
+        \PY{l+s+sd}{       }
+        \PY{l+s+sd}{    FROM teams FULL OUTER JOIN measures}
+        \PY{l+s+sd}{        ON teams.id=measures.team\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN tasks ON tasks.id = measures.task\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN phases ON phases.id = measures.phase\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN events ON events.id = measures.event\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN actors ON actors.id = measures.actor\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN matches ON matches.id = measures.match\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN levels ON levels.id = measures.level\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN alliances ON alliances.id = measures.alliance\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN stations ON stations.id = measures.station\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN measuretypes ON measuretypes.id = measures.measuretype\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN attempts ON attempts.id = measures.attempt\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN reasons ON reasons.id = measures.reason\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN dates ON dates.id = measures.date\PYZus{}id}
+        \PY{l+s+sd}{    WHERE events.name = \PYZsq{}wayak\PYZsq{} AND events.season = \PYZsq{}2018\PYZsq{})}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{SELECT * FROM rmeasures}
+        \PY{l+s+sd}{    ORDER BY team, phase, actor, task;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}       event season                 date level  match alliance station  team  \textbackslash{}
+        0     wayak   2018  2018-03-16T11:14:00  qual  003-q      red       2  1318   
+        1     wayak   2018  2018-03-16T16:56:00  qual  039-q      red       1  1318   
+        2     wayak   2018  2018-03-16T18:27:00  qual  052-q      red       2  1318   
+        3     wayak   2018  2018-03-16T15:16:00  qual  029-q      red       1  1318   
+        4     wayak   2018  2018-03-17T10:05:00  qual  061-q     blue       1  1318   
+        5     wayak   2018  2018-03-16T15:44:00  qual  033-q     blue       1  1318   
+        6     wayak   2018  2018-03-16T14:13:00  qual  020-q      red       2  1318   
+        7     wayak   2018  2018-03-16T12:31:00  qual  014-q     blue       3  1318   
+        8     wayak   2018  2018-03-16T11:49:00  qual  008-q     blue       3  1318   
+        9     wayak   2018  2018-03-16T17:24:00  qual  043-q      red       2  1318   
+        10    wayak   2018  2018-03-16T14:41:00  qual  024-q     blue       3  1318   
+        11    wayak   2018  2018-03-16T15:16:00  qual  029-q      red       1  1318   
+        12    wayak   2018  2018-03-17T10:05:00  qual  061-q     blue       1  1318   
+        13    wayak   2018  2018-03-16T12:31:00  qual  014-q     blue       3  1318   
+        14    wayak   2018  2018-03-16T11:49:00  qual  008-q     blue       3  1318   
+        15    wayak   2018  2018-03-17T09:30:00  qual  056-q     blue       3  1318   
+        16    wayak   2018  2018-03-16T17:24:00  qual  043-q      red       2  1318   
+        17    wayak   2018  2018-03-16T15:16:00  qual  029-q      red       1  1318   
+        18    wayak   2018  2018-03-16T14:13:00  qual  020-q      red       2  1318   
+        19    wayak   2018  2018-03-16T18:27:00  qual  052-q      red       2  1318   
+        20    wayak   2018  2018-03-16T15:44:00  qual  033-q     blue       1  1318   
+        21    wayak   2018  2018-03-16T16:56:00  qual  039-q      red       1  1318   
+        22    wayak   2018  2018-03-16T15:16:00  qual  029-q      red       1  1318   
+        23    wayak   2018  2018-03-16T15:16:00  qual  029-q      red       1  1318   
+        24    wayak   2018  2018-03-17T10:05:00  qual  061-q     blue       1  1318   
+        25    wayak   2018  2018-03-17T09:30:00  qual  056-q     blue       3  1318   
+        26    wayak   2018  2018-03-16T11:49:00  qual  008-q     blue       3  1318   
+        27    wayak   2018  2018-03-16T14:41:00  qual  024-q     blue       3  1318   
+        28    wayak   2018  2018-03-16T14:13:00  qual  020-q      red       2  1318   
+        29    wayak   2018  2018-03-16T12:31:00  qual  014-q     blue       3  1318   
+        {\ldots}     {\ldots}    {\ldots}                  {\ldots}   {\ldots}    {\ldots}      {\ldots}     {\ldots}   {\ldots}   
+        2100  wayak   2018  2018-03-16T17:03:00  qual  040-q     blue       2  6831   
+        2101  wayak   2018  2018-03-16T12:52:00  qual  017-q     blue       2  6831   
+        2102  wayak   2018  2018-03-16T14:20:00  qual  021-q     blue       1  6831   
+        2103  wayak   2018  2018-03-16T16:35:00  qual  036-q      red       2  6831   
+        2104  wayak   2018  2018-03-16T11:07:00  qual  002-q     blue       3  6831   
+        2105  wayak   2018  2018-03-16T12:10:00  qual  011-q      red       1  6831   
+        2106  wayak   2018  2018-03-16T18:20:00  qual  051-q      red       3  6831   
+        2107  wayak   2018  2018-03-17T09:58:00  qual  060-q      red       3  6831   
+        2108  wayak   2018  2018-03-16T18:20:00  qual  051-q      red       3  6831   
+        2109  wayak   2018  2018-03-16T11:07:00  qual  002-q     blue       3  6831   
+        2110  wayak   2018  2018-03-17T09:58:00  qual  060-q      red       3  6831   
+        2111  wayak   2018  2018-03-16T14:20:00  qual  021-q     blue       1  6831   
+        2112  wayak   2018  2018-03-17T09:58:00  qual  060-q      red       3  6831   
+        2113  wayak   2018  2018-03-16T12:52:00  qual  017-q     blue       2  6831   
+        2114  wayak   2018  2018-03-16T12:10:00  qual  011-q      red       1  6831   
+        2115  wayak   2018  2018-03-16T11:42:00  qual  007-q      red       1  6831   
+        2116  wayak   2018  2018-03-16T18:20:00  qual  051-q      red       3  6831   
+        2117  wayak   2018  2018-03-16T17:03:00  qual  040-q     blue       2  6831   
+        2118  wayak   2018  2018-03-16T16:35:00  qual  036-q      red       2  6831   
+        2119  wayak   2018  2018-03-16T15:30:00  qual  031-q     blue       1  6831   
+        2120  wayak   2018  2018-03-16T18:34:00  qual  053-q      red       3  6831   
+        2121  wayak   2018  2018-03-16T17:24:00  qual  043-q     blue       2  6831   
+        2122  wayak   2018  2018-03-16T11:07:00  qual  002-q     blue       3  6831   
+        2123  wayak   2018  2018-03-16T17:03:00  qual  040-q     blue       2  6831   
+        2124  wayak   2018  2018-03-16T12:10:00  qual  011-q      red       1  6831   
+        2125  wayak   2018  2018-03-16T18:20:00  qual  051-q      red       3  6831   
+        2126  wayak   2018  2018-03-16T15:30:00  qual  031-q     blue       1  6831   
+        2127  wayak   2018  2018-03-16T18:34:00  qual  053-q      red       3  6831   
+        2128  wayak   2018  2018-03-16T17:24:00  qual  043-q     blue       2  6831   
+        2129  wayak   2018  2018-03-17T09:58:00  qual  060-q      red       3  6831   
+        
+               phase  actor            task measuretype  attempt reason  successes  \textbackslash{}
+        0       auto  robot        autoLine     boolean  summary     na          1   
+        1       auto  robot        autoLine     boolean  summary     na          1   
+        2       auto  robot        autoLine     boolean  summary     na          1   
+        3       auto  robot        autoLine     boolean  summary     na          1   
+        4       auto  robot        autoLine     boolean  summary     na          1   
+        5       auto  robot        autoLine     boolean  summary     na          1   
+        6       auto  robot        autoLine     boolean  summary     na          1   
+        7       auto  robot        autoLine     boolean  summary     na          1   
+        8       auto  robot        autoLine     boolean  summary     na          1   
+        9       auto  robot        autoLine     boolean  summary     na          1   
+        10      auto  robot        autoLine     boolean  summary     na          1   
+        11      auto  robot       crossNull     boolean  summary     na          0   
+        12      auto  robot        holdCube     boolean  summary     na          1   
+        13      auto  robot        holdCube     boolean  summary     na          1   
+        14      auto  robot        holdCube     boolean  summary     na          1   
+        15      auto  robot        holdCube     boolean  summary     na          1   
+        16      auto  robot        holdCube     boolean  summary     na          1   
+        17      auto  robot        holdCube     boolean  summary     na          1   
+        18      auto  robot        holdCube     boolean  summary     na          1   
+        19      auto  robot        holdCube     boolean  summary     na          1   
+        20      auto  robot        holdCube     boolean  summary     na          1   
+        21      auto  robot        holdCube     boolean  summary     na          1   
+        22      auto  robot  placeIncorrect     boolean  summary     na          0   
+        23      auto  robot      placeScale       count  summary     na          1   
+        24      auto  robot     placeSwitch       count  summary     na          1   
+        25      auto  robot     placeSwitch       count  summary     na          1   
+        26      auto  robot     placeSwitch       count  summary     na          1   
+        27      auto  robot     placeSwitch       count  summary     na          1   
+        28      auto  robot     placeSwitch       count  summary     na          1   
+        29      auto  robot     placeSwitch       count  summary     na          1   
+        {\ldots}      {\ldots}    {\ldots}             {\ldots}         {\ldots}      {\ldots}    {\ldots}        {\ldots}   
+        2100  teleop  robot  pickupPlatform       count  summary     na          5   
+        2101  teleop  robot  pickupPlatform       count  summary     na          2   
+        2102  teleop  robot  pickupPlatform       count  summary     na          3   
+        2103  teleop  robot  pickupPlatform       count  summary     na          4   
+        2104  teleop  robot  pickupPlatform       count  summary     na          4   
+        2105  teleop  robot  pickupPlatform       count  summary     na          3   
+        2106  teleop  robot  pickupPlatform       count  summary     na          4   
+        2107  teleop  robot    pickupPortal       count  summary     na          3   
+        2108  teleop  robot   placeExchange       count  summary     na          0   
+        2109  teleop  robot   placeExchange       count  summary     na          1   
+        2110  teleop  robot   placeOpponent       count  summary     na          4   
+        2111  teleop  robot      placeScale       count  summary     na          4   
+        2112  teleop  robot      placeScale       count  summary     na          0   
+        2113  teleop  robot      placeScale       count  summary     na          3   
+        2114  teleop  robot      placeScale       count  summary     na          2   
+        2115  teleop  robot      placeScale       count  summary     na          3   
+        2116  teleop  robot      placeScale       count  summary     na          4   
+        2117  teleop  robot      placeScale       count  summary     na          4   
+        2118  teleop  robot      placeScale       count  summary     na          3   
+        2119  teleop  robot      placeScale       count  summary     na          1   
+        2120  teleop  robot      placeScale       count  summary     na          3   
+        2121  teleop  robot      placeScale       count  summary     na          5   
+        2122  teleop  robot      placeScale       count  summary     na          4   
+        2123  teleop  robot     placeSwitch       count  summary     na          1   
+        2124  teleop  robot     placeSwitch       count  summary     na          0   
+        2125  teleop  robot     placeSwitch       count  summary     na          0   
+        2126  teleop  robot     placeSwitch       count  summary     na          1   
+        2127  teleop  robot     placeSwitch       count  summary     na          0   
+        2128  teleop  robot     placeSwitch       count  summary     na          0   
+        2129  teleop  robot     placeSwitch       count  summary     na          1   
+        
+              attempts  cycle\_times  capability  
+        0            1            0           0  
+        1            1            0           0  
+        2            1            0           0  
+        3            1            0           0  
+        4            1            0           0  
+        5            1            0           0  
+        6            1            0           0  
+        7            1            0           0  
+        8            1            0           0  
+        9            1            0           0  
+        10           1            0           0  
+        11           0            0           0  
+        12           1            0           0  
+        13           1            0           0  
+        14           1            0           0  
+        15           1            0           0  
+        16           1            0           0  
+        17           1            0           0  
+        18           1            0           0  
+        19           1            0           0  
+        20           1            0           0  
+        21           1            0           0  
+        22           0            0           0  
+        23           1            0           0  
+        24           1            0           0  
+        25           1            0           0  
+        26           1            0           0  
+        27           1            0           0  
+        28           1            0           0  
+        29           1            0           0  
+        {\ldots}        {\ldots}          {\ldots}         {\ldots}  
+        2100         5            0           0  
+        2101         2            0           0  
+        2102         3            0           0  
+        2103         4            0           0  
+        2104         4            0           0  
+        2105         3            0           0  
+        2106         4            0           0  
+        2107         3            0           0  
+        2108         0            0           0  
+        2109         1            0           0  
+        2110         4            0           0  
+        2111         4            0           0  
+        2112         0            0           0  
+        2113         4            0           0  
+        2114         3            0           0  
+        2115         6            0           0  
+        2116         4            0           0  
+        2117         6            0           0  
+        2118         4            0           0  
+        2119         3            0           0  
+        2120         3            0           0  
+        2121         6            0           0  
+        2122         5            0           0  
+        2123         1            0           0  
+        2124         0            0           0  
+        2125         0            0           0  
+        2126         1            0           0  
+        2127         2            0           0  
+        2128         0            0           0  
+        2129         3            0           0  
+        
+        [2130 rows x 18 columns]
+\end{Verbatim}
+            
+    \hypertarget{aggregate-query}{%
+\section{Aggregate Query}\label{aggregate-query}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{WITH rmeasures AS (}
+        \PY{l+s+sd}{    SELECT events.name AS event, events.season AS season, dates.name AS date,}
+        \PY{l+s+sd}{       levels.name AS level, matches.name AS match, alliances.name AS alliance,}
+        \PY{l+s+sd}{       stations.name AS station, teams.name AS team, phases.name AS phase,}
+        \PY{l+s+sd}{       actors.name AS actor, tasks.name AS task, measuretypes.name AS measuretype,}
+        \PY{l+s+sd}{       attempts.name AS attempt, reasons.name AS reason,}
+        \PY{l+s+sd}{       measures.successes AS successes, measures.attempts AS attempts,}
+        \PY{l+s+sd}{       measures.cycle\PYZus{}times as cycle\PYZus{}times, measures.capability as capability}
+        \PY{l+s+sd}{       }
+        \PY{l+s+sd}{    FROM teams FULL OUTER JOIN measures}
+        \PY{l+s+sd}{        ON teams.id=measures.team\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN tasks ON tasks.id = measures.task\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN phases ON phases.id = measures.phase\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN events ON events.id = measures.event\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN actors ON actors.id = measures.actor\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN matches ON matches.id = measures.match\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN levels ON levels.id = measures.level\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN alliances ON alliances.id = measures.alliance\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN stations ON stations.id = measures.station\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN measuretypes ON measuretypes.id = measures.measuretype\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN attempts ON attempts.id = measures.attempt\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN reasons ON reasons.id = measures.reason\PYZus{}id}
+        \PY{l+s+sd}{        LEFT JOIN dates ON dates.id = measures.date\PYZus{}id}
+        \PY{l+s+sd}{    WHERE events.name = \PYZsq{}wayak\PYZsq{} AND events.season = \PYZsq{}2018\PYZsq{})}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{SELECT team, phase, actor, task,}
+        \PY{l+s+sd}{       SUM(successes) AS sum\PYZus{}successes, AVG(successes) AS avg\PYZus{}successes, MAX(successes) AS max\PYZus{}successes,}
+        \PY{l+s+sd}{       SUM(attempts) AS sum\PYZus{}attempts, AVG(attempts) AS avg\PYZus{}attempts, MAX(attempts) AS max\PYZus{}attempts}
+        \PY{l+s+sd}{    FROM rmeasures}
+        \PY{l+s+sd}{    GROUP BY team, phase, actor, task}
+        \PY{l+s+sd}{    ORDER BY team, phase, actor, task;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}    team phase  actor            task  sum\_successes  avg\_successes  \textbackslash{}
+        0  1318  auto  robot        autoLine             11            1.0   
+        1  1318  auto  robot       crossNull              0            0.0   
+        2  1318  auto  robot        holdCube             10            1.0   
+        3  1318  auto  robot  placeIncorrect              0            0.0   
+        4  1318  auto  robot      placeScale              1            1.0   
+        
+           max\_successes  sum\_attempts  avg\_attempts  max\_attempts  
+        0              1            11           1.0             1  
+        1              0             0           0.0             0  
+        2              1            10           1.0             1  
+        3              0             0           0.0             0  
+        4              1             1           1.0             1  
+\end{Verbatim}
+            
+    \hypertarget{compound-query}{%
+\section{Compound Query}\label{compound-query}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{SELECT team, phase, actor, task,}
+        \PY{l+s+sd}{       SUM(successes) AS sum\PYZus{}successes, AVG(successes) AS avg\PYZus{}successes, MAX(successes) AS max\PYZus{}successes,}
+        \PY{l+s+sd}{       SUM(attempts) AS sum\PYZus{}attempts, AVG(attempts) AS avg\PYZus{}attempts, MAX(attempts) AS max\PYZus{}attempts}
+        \PY{l+s+sd}{       }
+        \PY{l+s+sd}{    FROM (}
+        \PY{l+s+sd}{        SELECT events.name AS event, events.season AS season, dates.name AS date,}
+        \PY{l+s+sd}{           levels.name AS level, matches.name AS match, alliances.name AS alliance,}
+        \PY{l+s+sd}{           stations.name AS station, teams.name AS team, phases.name AS phase,}
+        \PY{l+s+sd}{           actors.name AS actor, tasks.name AS task, measuretypes.name AS measuretype,}
+        \PY{l+s+sd}{           attempts.name AS attempt, reasons.name AS reason,}
+        \PY{l+s+sd}{           measures.successes AS successes, measures.attempts AS attempts,}
+        \PY{l+s+sd}{           measures.cycle\PYZus{}times as cycle\PYZus{}times, measures.capability as capability}
+        
+        \PY{l+s+sd}{        FROM teams FULL OUTER JOIN measures}
+        \PY{l+s+sd}{            ON teams.id=measures.team\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN tasks ON tasks.id = measures.task\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN phases ON phases.id = measures.phase\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN events ON events.id = measures.event\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN actors ON actors.id = measures.actor\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN matches ON matches.id = measures.match\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN levels ON levels.id = measures.level\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN alliances ON alliances.id = measures.alliance\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN stations ON stations.id = measures.station\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN measuretypes ON measuretypes.id = measures.measuretype\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN attempts ON attempts.id = measures.attempt\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN reasons ON reasons.id = measures.reason\PYZus{}id}
+        \PY{l+s+sd}{            LEFT JOIN dates ON dates.id = measures.date\PYZus{}id}
+        \PY{l+s+sd}{        WHERE events.name = \PYZsq{}wayak\PYZsq{} AND events.season = \PYZsq{}2018\PYZsq{}}
+        \PY{l+s+sd}{    ) AS r}
+        \PY{l+s+sd}{    GROUP BY team, phase, actor, task}
+        \PY{l+s+sd}{    ORDER BY team, phase, actor, task;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}teams}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    team phase  actor            task  sum\_successes  avg\_successes  \textbackslash{}
+        0  1318  auto  robot        autoLine             11            1.0   
+        1  1318  auto  robot       crossNull              0            0.0   
+        2  1318  auto  robot        holdCube             10            1.0   
+        3  1318  auto  robot  placeIncorrect              0            0.0   
+        4  1318  auto  robot      placeScale              1            1.0   
+        
+           max\_successes  sum\_attempts  avg\_attempts  max\_attempts  
+        0              1            11           1.0             1  
+        1              0             0           0.0             0  
+        2              1            10           1.0             1  
+        3              0             0           0.0             0  
+        4              1             1           1.0             1  
+\end{Verbatim}
+            
+    \hypertarget{match_num-query-subquery-1}{%
+\section{match\_num Query: Subquery
+\#1}\label{match_num-query-subquery-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{SELECT status.event\PYZus{}id as event\PYZus{}id, status.match, schedules.date}
+        \PY{l+s+sd}{        FROM status INNER JOIN schedules}
+        \PY{l+s+sd}{        ON status.event\PYZus{}id=schedules.event\PYZus{}id AND}
+        \PY{l+s+sd}{        status.match=schedules.match}
+        \PY{l+s+sd}{        WHERE date \PYZlt{}\PYZgt{} \PYZsq{}na\PYZsq{} LIMIT 1;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    event\_id  match                 date
+        0     25167  001-q  2018-03-16T11:00:00
+\end{Verbatim}
+            
+    \hypertarget{match_num-query-subquery-2}{%
+\section{match\_num Query: Subquery
+\#2}\label{match_num-query-subquery-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{WITH current AS (}
+        \PY{l+s+sd}{    SELECT status.event\PYZus{}id AS event\PYZus{}id,}
+        \PY{l+s+sd}{            status.match, schedules.date}
+        \PY{l+s+sd}{        FROM status INNER JOIN schedules}
+        \PY{l+s+sd}{            ON  status.event\PYZus{}id=schedules.event\PYZus{}id AND}
+        \PY{l+s+sd}{                status.match=schedules.match}
+        \PY{l+s+sd}{        WHERE date \PYZlt{}\PYZgt{} \PYZsq{}na\PYZsq{} LIMIT 1}
+        \PY{l+s+sd}{)}
+        \PY{l+s+sd}{SELECT * FROM (}
+        \PY{l+s+sd}{    SELECT ROW\PYZus{}NUMBER() OVER (}
+        \PY{l+s+sd}{                PARTITION BY team ORDER BY sched.date DESC) AS r,}
+        \PY{l+s+sd}{            sched.*}
+        \PY{l+s+sd}{        FROM schedules AS sched, current AS c}
+        \PY{l+s+sd}{        WHERE sched.event\PYZus{}id = c.event\PYZus{}id AND sched.date \PYZlt{}= c.date)}
+        \PY{l+s+sd}{        AS row\PYZus{}schedule}
+        \PY{l+s+sd}{    WHERE row\PYZus{}schedule.r \PYZlt{}= :num\PYZus{}mtchs ORDER BY team, date DESC;}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{bindparams}\PY{p}{(}\PY{n}{num\PYZus{}mtchs}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+        \PY{n}{df\PYZus{}matches}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}    r     id                 date level  match alliance  team station  event\_id
+        0  1  61631  2018-03-16T11:00:00  qual  001-q     blue  2148       2     25167
+        1  1  61628  2018-03-16T11:00:00  qual  001-q      red  3693       2     25167
+        2  1  61629  2018-03-16T11:00:00  qual  001-q      red  4061       3     25167
+        3  1  61627  2018-03-16T11:00:00  qual  001-q      red  4120       1     25167
+        4  1  61630  2018-03-16T11:00:00  qual  001-q     blue  4125       1     25167
+        5  1  61632  2018-03-16T11:00:00  qual  001-q     blue  6076       3     25167
+\end{Verbatim}
+            
+    \hypertarget{match_num-query-entire-query}{%
+\section{match\_num Query: Entire
+Query}\label{match_num-query-entire-query}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{WITH current AS (}
+         \PY{l+s+sd}{    SELECT  status.event\PYZus{}id AS event\PYZus{}id,}
+         \PY{l+s+sd}{            status.match, schedules.date}
+         \PY{l+s+sd}{        FROM status INNER JOIN schedules}
+         \PY{l+s+sd}{            ON  status.event\PYZus{}id=schedules.event\PYZus{}id AND}
+         \PY{l+s+sd}{                status.match=schedules.match}
+         \PY{l+s+sd}{        WHERE date \PYZlt{}\PYZgt{} \PYZsq{}na\PYZsq{} LIMIT 1}
+         \PY{l+s+sd}{),}
+         \PY{l+s+sd}{recent\PYZus{}matches AS (}
+         \PY{l+s+sd}{    SELECT * FROM (}
+         \PY{l+s+sd}{        SELECT row\PYZus{}number() over (}
+         \PY{l+s+sd}{                    PARTITION BY team ORDER BY sched.date DESC) AS r,}
+         \PY{l+s+sd}{                sched.*}
+         \PY{l+s+sd}{            FROM schedules AS sched, current AS c}
+         \PY{l+s+sd}{            WHERE sched.event\PYZus{}id = c.event\PYZus{}id AND sched.date \PYZlt{}= c.date)}
+         \PY{l+s+sd}{            AS row\PYZus{}schedule}
+         \PY{l+s+sd}{        WHERE row\PYZus{}schedule.r \PYZlt{}= :num\PYZus{}mtchs ORDER BY team, date DESC}
+         \PY{l+s+sd}{)}
+         \PY{l+s+sd}{SELECT team, MAX(r) AS matches}
+         \PY{l+s+sd}{    FROM recent\PYZus{}matches}
+         \PY{l+s+sd}{    GROUP BY team ORDER BY team;}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{bindparams}\PY{p}{(}\PY{n}{num\PYZus{}mtchs}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{df\PYZus{}matches} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+         \PY{n}{df\PYZus{}matches}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    team  matches
+         0  1318       11
+         1  2148       11
+         2  2522       12
+         3  2811       12
+         4  2915       12
+\end{Verbatim}
+            
+    \hypertarget{measure_summary-query}{%
+\section{measure\_summary Query}\label{measure_summary-query}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{sql} \PY{o}{=} \PY{n}{sa}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{WITH}
+         \PY{l+s+sd}{current AS (}
+         \PY{l+s+sd}{    SELECT status.event\PYZus{}id AS event\PYZus{}id, status.match, schedules.date}
+         \PY{l+s+sd}{        FROM status INNER JOIN schedules}
+         \PY{l+s+sd}{            ON status.event\PYZus{}id=schedules.event\PYZus{}id AND}
+         \PY{l+s+sd}{                status.match=schedules.match}
+         \PY{l+s+sd}{        WHERE date \PYZlt{}\PYZgt{} \PYZsq{}na\PYZsq{} LIMIT 1}
+         \PY{l+s+sd}{        ),}
+         \PY{l+s+sd}{recent\PYZus{}matches AS (}
+         \PY{l+s+sd}{    SELECT * FROM (}
+         \PY{l+s+sd}{        SELECT row\PYZus{}number() OVER (}
+         \PY{l+s+sd}{                    PARTITION BY team ORDER BY sched.date DESC) AS r,}
+         \PY{l+s+sd}{                sched.*}
+         \PY{l+s+sd}{            FROM schedules AS sched, current AS c}
+         \PY{l+s+sd}{            WHERE sched.event\PYZus{}id = c.event\PYZus{}id AND sched.date \PYZlt{}= c.date)}
+         \PY{l+s+sd}{            AS row\PYZus{}schedule}
+         \PY{l+s+sd}{        WHERE row\PYZus{}schedule.r \PYZlt{}= :num\PYZus{}mtchs ORDER BY team, date DESC}
+         \PY{l+s+sd}{),}
+         \PY{l+s+sd}{team\PYZus{}match\PYZus{}count AS (}
+         \PY{l+s+sd}{    SELECT team, COUNT(team) AS team\PYZus{}matches}
+         \PY{l+s+sd}{        FROM recent\PYZus{}matches}
+         \PY{l+s+sd}{        GROUP BY team}
+         \PY{l+s+sd}{)}
+         \PY{l+s+sd}{SELECT teams.name AS team, phases.name AS phase, tasks.name AS task,}
+         \PY{l+s+sd}{    actors.name AS actor,}
+         \PY{l+s+sd}{    MAX(team\PYZus{}match\PYZus{}count.team\PYZus{}matches) AS matches,}
+         \PY{l+s+sd}{    SUM(successes) AS sum\PYZus{}successes, MAX(successes) AS max\PYZus{}successes,}
+         \PY{l+s+sd}{    MIN(successes) AS min\PYZus{}successes, COUNT(successes) AS count\PYZus{}successes,}
+         \PY{l+s+sd}{    CAST(SUM(successes) AS FLOAT)/MAX(team\PYZus{}match\PYZus{}count.team\PYZus{}matches)}
+         \PY{l+s+sd}{            AS avg\PYZus{}successes,}
+         \PY{l+s+sd}{    AVG(successes) AS tav\PYZus{}successes,}
+         
+         \PY{l+s+sd}{    SUM(attempts) AS sum\PYZus{}attempts, MAX(attempts) AS max\PYZus{}attempts,}
+         \PY{l+s+sd}{    MIN(attempts) AS min\PYZus{}attempts, COUNT(attempts) AS count\PYZus{}attempts,}
+         \PY{l+s+sd}{    CAST(SUM(attempts) AS FLOAT)/MAX(team\PYZus{}match\PYZus{}count.team\PYZus{}matches)}
+         \PY{l+s+sd}{            AS avg\PYZus{}attempts,}
+         \PY{l+s+sd}{    AVG(attempts) AS tav\PYZus{}attempts,}
+         
+         \PY{l+s+sd}{    SUM(cycle\PYZus{}times) AS sum\PYZus{}cycle\PYZus{}times,}
+         \PY{l+s+sd}{    MAX(cycle\PYZus{}times) AS max\PYZus{}cycle\PYZus{}times,}
+         \PY{l+s+sd}{    MIN(cycle\PYZus{}times) AS min\PYZus{}cycle\PYZus{}times,}
+         \PY{l+s+sd}{    CAST(SUM(cycle\PYZus{}times) AS FLOAT)/MAX(team\PYZus{}match\PYZus{}count.team\PYZus{}matches)}
+         \PY{l+s+sd}{            AS avg\PYZus{}cycle\PYZus{}times,}
+         \PY{l+s+sd}{    AVG(cycle\PYZus{}times) AS tav\PYZus{}cycle\PYZus{}times, }
+         \PY{l+s+sd}{    COUNT(cycle\PYZus{}times) AS count\PYZus{}cycle\PYZus{}times,}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{    SUM(capability) AS sum\PYZus{}capabilities,}
+         \PY{l+s+sd}{    MAX(capability) as max\PYZus{}capabilities,}
+         \PY{l+s+sd}{    MIN(capability) AS min\PYZus{}capabilities,}
+         \PY{l+s+sd}{    COUNT(capability) AS count\PYZus{}capabilities,}
+         \PY{l+s+sd}{    CAST(SUM(capability) AS FLOAT)/MAX(team\PYZus{}match\PYZus{}count.team\PYZus{}matches)}
+         \PY{l+s+sd}{            AS avg\PYZus{}capabilities,}
+         \PY{l+s+sd}{    AVG(capability) AS tav\PYZus{}capabilities}
+         
+         \PY{l+s+sd}{    FROM (((((((teams FULL OUTER JOIN measures}
+         \PY{l+s+sd}{        ON teams.id=measures.team\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN tasks ON tasks.id = measures.task\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN phases ON phases.id = measures.phase\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN events ON events.id = measures.event\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN actors ON actors.id = measures.actor\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN matches ON matches.id = measures.match\PYZus{}id)}
+         \PY{l+s+sd}{        LEFT JOIN team\PYZus{}match\PYZus{}count}
+         \PY{l+s+sd}{                ON team\PYZus{}match\PYZus{}count.team = teams.name)}
+         \PY{l+s+sd}{        RIGHT JOIN recent\PYZus{}matches}
+         \PY{l+s+sd}{                ON recent\PYZus{}matches.match = matches.name AND}
+         \PY{l+s+sd}{                    team\PYZus{}match\PYZus{}count.team = teams.name AND}
+         \PY{l+s+sd}{                    recent\PYZus{}matches.team = team\PYZus{}match\PYZus{}count.team}
+         \PY{l+s+sd}{    WHERE events.id = :evt\PYZus{}id}
+         \PY{l+s+sd}{    GROUP BY teams.name, tasks.name, phases.name, actors.name}
+         \PY{l+s+sd}{    ORDER BY teams.name, phases.name, tasks.name, actors.name;}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{bindparams}\PY{p}{(}\PY{n}{num\PYZus{}mtchs}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{evt\PYZus{}id}\PY{o}{=}\PY{l+m+mi}{25167}\PY{p}{)}
+         \PY{n}{df\PYZus{}matches} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql}\PY{p}{,} \PY{n}{conn}\PY{p}{)}
+         \PY{n}{df\PYZus{}matches}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    team   phase         task  actor  matches  sum\_successes  max\_successes  \textbackslash{}
+         0  2148    auto     autoLine  robot        1              1              1   
+         1  2148    auto     holdCube  robot        1              0              0   
+         2  2148    auto   pickupCube  robot        1              0              0   
+         3  2148    auto  placeSwitch  robot        1              0              0   
+         4  2148  finish    makeClimb  robot        1              0              0   
+         
+            min\_successes  count\_successes  avg\_successes        {\ldots}         \textbackslash{}
+         0              1                1            1.0        {\ldots}          
+         1              0                1            0.0        {\ldots}          
+         2              0                1            0.0        {\ldots}          
+         3              0                1            0.0        {\ldots}          
+         4              0                1            0.0        {\ldots}          
+         
+            min\_cycle\_times  avg\_cycle\_times  tav\_cycle\_times  count\_cycle\_times  \textbackslash{}
+         0                0              0.0              0.0                  1   
+         1                0              0.0              0.0                  1   
+         2                0              0.0              0.0                  1   
+         3                0              0.0              0.0                  1   
+         4                0              0.0              0.0                  1   
+         
+            sum\_capabilities  max\_capabilities  min\_capabilities  count\_capabilities  \textbackslash{}
+         0                 0                 0                 0                   1   
+         1                 0                 0                 0                   1   
+         2                 0                 0                 0                   1   
+         3                 0                 0                 0                   1   
+         4                 0                 0                 0                   1   
+         
+            avg\_capabilities  tav\_capabilities  
+         0               0.0               0.0  
+         1               0.0               0.0  
+         2               0.0               0.0  
+         3               0.0               0.0  
+         4               0.0               0.0  
+         
+         [5 rows x 29 columns]
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

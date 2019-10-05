@@ -1,0 +1,8 @@
+cherrypy
+pytest
+pandas
+sqlalchemy
+bokeh
+matplotlib
+psycopg2
+holoviews
