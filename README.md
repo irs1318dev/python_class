@@ -27,5 +27,4 @@ Instructional method
 * Show participants the online references and provide just enough information to start working on the coding exercises
 * Provide hints and encouragement when participants get stuck
 
-#### July 2018
-
+#### October 2019
