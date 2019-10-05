@@ -8,7 +8,7 @@ Issaquah Washington.
 The course is divided into multiple sessions, each of which covers only a few topics. There is a Google Slides
 presentation for every session. [Click on this link for an overview](https://docs.google.com/presentation/d/1I7UT_SlzKPdMUcimG--sRbG1tNZ6Wwg3zkupe0vBFAc/edit?usp=sharing).
 
-[## Course Sessions](https://github.com/irs1318dev/python_class/blob/master/sessions.md)
+## [Course Sessions](https://github.com/irs1318dev/python_class/blob/master/sessions.md)
 
 ## Course Objectives
 Participants who complete this course will be able to:
